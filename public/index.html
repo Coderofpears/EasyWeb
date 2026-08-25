@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="EasyWeb's zero-config static website example gallery.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>EasyWeb — Static site gallery</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header shell">
+    <a class="brand" href="/" aria-label="EasyWeb home">
+      <span class="brand-mark">EW</span>
+      <span>EasyWeb</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#examples">Examples</a>
+      <a href="#capabilities">Capabilities</a>
+      <a class="nav-cta" href="/examples/contact/">Try the form</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero shell">
+      <div class="eyebrow"><span class="status-dot"></span> Serving from <code>./public</code></div>
+      <h1>Drop in a folder.<br><em>Ship a website.</em></h1>
+      <p class="hero-copy">EasyWeb turns ordinary HTML files into a running site on port 8000, with one tiny endpoint for prototypes that need to collect a little data.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#examples">Explore the examples <span aria-hidden="true">↓</span></a>
+        <a class="button button-quiet" href="https://github.com/Coderofpears/EasyWeb">View on GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="hero-terminal" aria-label="Terminal command">
+        <span class="terminal-prompt">$</span><span>python main.py</span><span class="terminal-cursor"></span>
+        <span class="terminal-result"> * Running on http://127.0.0.1:8000</span>
+      </div>
+    </section>
+
+    <section id="examples" class="section shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">The gallery</p>
+          <h2>Four ways to use a plain folder.</h2>
+        </div>
+        <p>Each demo is made from files you can open, copy, and reshape without a build pipeline.</p>
+      </div>
+      <div class="example-grid">
+        <a class="example-card card-landing" href="/examples/landing/">
+          <div class="card-art art-sunrise"><span>NS</span></div>
+          <div class="card-body"><div class="card-kicker">01 / Landing page</div><h3>Northstar Studio</h3><p>A calm, responsive launch page with a local SVG asset.</p><span class="card-link">Open example <span aria-hidden="true">→</span></span></div>
+        </a>
+        <a class="example-card card-contact" href="/examples/contact/">
+          <div class="card-art art-signal"><span class="signal-line"></span><span class="signal-line signal-line-two"></span></div>
+          <div class="card-body"><div class="card-kicker">02 / Form + JSON</div><h3>Signal Contact</h3><p>A no-backend-looking contact experience powered by <code>/submit</code>.</p><span class="card-link">Open example <span aria-hidden="true">→</span></span></div>
+        </a>
+        <a class="example-card card-blog" href="/examples/blog/">
+          <div class="card-art art-paper"><span>FIELD<br>NOTES</span></div>
+          <div class="card-body"><div class="card-kicker">03 / Multi-page site</div><h3>Field Notes</h3><p>A tiny editorial site with an index and a nested article page.</p><span class="card-link">Open example <span aria-hidden="true">→</span></span></div>
+        </a>
+        <a class="example-card card-dashboard" href="/examples/dashboard/">
+          <div class="card-art art-grid"><span class="grid-bars"><i></i><i></i><i></i><i></i><i></i></span></div>
+          <div class="card-body"><div class="card-kicker">04 / Client-side app</div><h3>Pulse Dashboard</h3><p>Static data becomes an interactive dashboard with one JavaScript file.</p><span class="card-link">Open example <span aria-hidden="true">→</span></span></div>
+        </a>
+      </div>
+    </section>
+
+    <section id="capabilities" class="capability-section">
+      <div class="shell capability-layout">
+        <div>
+          <p class="eyebrow">Small surface area</p>
+          <h2>Everything you need for the first version.</h2>
+          <p class="muted-copy">There is no framework to learn and no asset compiler hiding behind the curtain. Add a file, refresh the browser, and keep moving.</p>
+        </div>
+        <div class="capability-list">
+          <div class="capability"><span class="capability-number">01</span><div><h3>Static by default</h3><p>HTML, CSS, SVG, images, and nested folders are served directly from <code>public/</code>.</p></div></div>
+          <div class="capability"><span class="capability-number">02</span><div><h3>One tiny write API</h3><p>POST form fields, JSON, or text to <code>/submit</code> and get a timestamped local record.</p></div></div>
+          <div class="capability"><span class="capability-number">03</span><div><h3>Easy to outgrow</h3><p>Start with a folder. Move to a production WSGI server and database when the project earns it.</p></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer shell"><span>EasyWeb / zero-config hosting</span><span>Built from ordinary files.</span></footer>
+</body>
+</html>

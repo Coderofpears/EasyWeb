@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A client-side dashboard example hosted by EasyWeb.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>Pulse Dashboard — Weekly signal</title>
+  <link rel="stylesheet" href="/examples/dashboard/dashboard.css">
+</head>
+<body>
+  <header class="dashboard-header shell"><a href="/" class="dashboard-brand"><span class="brand-square">P</span><span>Pulse</span></a><div class="header-meta"><span class="live-dot"></span> Live demo <a href="/">EasyWeb ↗</a></div></header>
+  <main class="shell dashboard-main">
+    <div class="dashboard-title"><div><p class="eyebrow">Monday, August 25, 2026</p><h1>Good morning, team.</h1></div><button id="refresh-button" class="refresh-button" type="button">Refresh data ↻</button></div>
+    <section class="metric-grid" aria-label="Key metrics"><div class="metric-card"><span>Weekly reach</span><strong>84.6k</strong><em>↑ 12.4%</em></div><div class="metric-card"><span>Engagement</span><strong>8.9%</strong><em>↑ 1.2%</em></div><div class="metric-card"><span>New members</span><strong>1,284</strong><em>↑ 18.7%</em></div><div class="metric-card quiet-metric"><span>Response time</span><strong>2.4h</strong><em>↓ 0.8h</em></div></section>
+    <section class="activity-panel"><div class="panel-heading"><div><p class="eyebrow">Activity</p><h2>Where the week is moving.</h2></div><label class="filter-label">Show <select id="activity-filter"><option value="all">all activity</option><option value="content">content</option><option value="community">community</option><option value="product">product</option></select></label></div><div class="chart" id="activity-chart" aria-label="Weekly activity chart"></div><div class="activity-list" id="activity-list"></div></section>
+  </main>
+  <footer class="dashboard-footer shell"><span>Pulse / static dashboard example</span><span>Data rendered in the browser</span></footer>
+  <script src="/examples/dashboard/dashboard.js"></script>
+</body>
+</html>
