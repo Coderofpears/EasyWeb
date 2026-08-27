@@ -6,9 +6,13 @@ Place HTML files, assets, and folders in ``./public`` and start the server with
 
 from __future__ import annotations
 
+import io
+import runpy
+from contextlib import redirect_stdout
 from pathlib import Path
+from threading import Lock
 
-from flask import Flask, Response, abort, redirect, send_from_directory, url_for
+from flask import Flask, Response, abort, redirect, request, send_from_directory, url_for
 from werkzeug.utils import safe_join
 
 # Server port
@@ -18,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent
 PUBLIC_DIR = BASE_DIR / "public"
 
 app = Flask(__name__)
+PYTHON_ENDPOINT_LOCK = Lock()
 #Change this if you want a custom 404 site.
 FALLBACK_HTML = """<!doctype html>
 <html lang="en">
@@ -40,7 +45,10 @@ FALLBACK_HTML = """<!doctype html>
 def index() -> Response:
     """Serve ``public/index.html`` or the built-in fallback page."""
 
-    index_file = PUBLIC_DIR / "index.html"
+    index_file = (PUBLIC_DIR / "index.html").resolve()
+    if not _is_inside_public(index_file):
+        return Response(FALLBACK_HTML, mimetype="text/html")
+
     if index_file.is_file():
         return send_from_directory(str(PUBLIC_DIR), "index.html")
 
@@ -49,13 +57,15 @@ def index() -> Response:
 
 @app.get("/<path:requested_path>")
 def serve_public(requested_path: str) -> Response:
-    """Serve any safe file below ``public``, including files in subfolders."""
+    """Serve static files and execute Python endpoint files below ``public``."""
 
     safe_path = safe_join(str(PUBLIC_DIR), requested_path)
     if safe_path is None:
         abort(404)
 
-    target = Path(safe_path)
+    target = Path(safe_path).resolve()
+    if not _is_inside_public(target):
+        abort(404)
 
     if target.is_dir():
         if not requested_path.endswith("/"):
@@ -71,9 +81,36 @@ def serve_public(requested_path: str) -> Response:
         abort(404)
 
     if target.is_file():
+        if target.suffix == ".py":
+            return execute_python_file(target)
+
         return send_from_directory(str(PUBLIC_DIR), requested_path)
 
     abort(404)
+
+
+def _is_inside_public(path: Path) -> bool:
+    """Return whether a resolved path belongs to the public directory."""
+
+    try:
+        path.relative_to(PUBLIC_DIR.resolve())
+    except ValueError:
+        return False
+    return True
+
+
+def execute_python_file(path: Path) -> Response:
+    """Run a Python endpoint and return everything it writes to stdout.
+
+    Endpoint files can import ``request`` from Flask to read query parameters.
+    They should print the response body, for example:
+    ``print(request.args.get("name", "World"))``.
+    """
+
+    output = io.StringIO()
+    with PYTHON_ENDPOINT_LOCK, redirect_stdout(output):
+        runpy.run_path(str(path), init_globals={"request": request})
+    return Response(output.getvalue(), mimetype="text/html")
 
 
 if __name__ == "__main__":
