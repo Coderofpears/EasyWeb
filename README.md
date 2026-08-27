@@ -1,12 +1,13 @@
 # EasyWeb
-
+[Website](https://easywebframework.netlify.app/)
 EasyWeb is a tiny, single-file Python web server for dropping a folder of
 static files into `public/` and serving them immediately. It requires zero
 configuration—just add your HTML files, stylesheets, and assets, then run it.
 
 The repository includes a small example gallery so you can see nested pages,
 assets, and client-side JavaScript all working from the same server.
-
+# Website
+[https://easywebframework.netlify.app/](https://easywebframework.netlify.app/)
 ## Quick start
 
 ```bash
