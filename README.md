@@ -97,31 +97,6 @@ The file is intentionally append-only and is not served from `public/`.
 Back it up, rotate it, or replace it with a real database only when the
 application requirements justify that change.
 
-## Project layout
-
-```text
-EasyWeb/
-├── main.py          # Single-file Flask application
-├── AGENTS.md        # Agent and contributor instructions
-├── README.md        # User documentation and example map
-├── requirements.txt # Flask dependency
-└── public/          # Static files and the included examples
-```
-
-## Testing
-
-The server has no build step. At minimum, run:
-
-```bash
-python -m py_compile main.py
-```
-
-For a fuller check, verify the root page, each example URL, a nested asset,
-the trailing-slash redirect, form and JSON submissions, Unicode data, a large
-body, concurrent appends, and traversal attempts. The application is meant
-for small prototypes and local tools; it does not include authentication,
-rate limiting, upload handling, or production WSGI configuration.
-
 ## Production note
 
 `python main.py` starts Flask's development server for convenience. If this
