@@ -30,10 +30,24 @@ Every file below `public/` is available at its matching URL path:
 | `public/blog/post.html` | `/blog/post.html` |
 | `public/assets/logo.svg` | `/assets/logo.svg` |
 | `public/docs/index.html` | `/docs/` |
+| `public/api/hello.py` | `/api/hello.py` |
 
 Folders with an `index.html` receive a trailing-slash redirect when opened
-without the slash. Files are sent directly from `public/`, and path traversal
-outside that directory is rejected.
+without the slash. HTML files inside nested folders are available at their
+matching URL, such as `/folder/example.html`. Python files are executed on
+each request, and their standard output is returned as an HTML response. A
+Python endpoint can read query parameters with Flask's `request` object:
+
+```python
+from flask import request
+
+name = request.args.get("name", "World")
+print(f"<h1>Hello, {name}!</h1>")
+```
+
+Files are sent directly from `public/`, and path traversal and symlink escapes
+outside that directory are rejected. Only place trusted Python files in
+`public/`: they run on the server with the permissions of the EasyWeb process.
 
 If `public/index.html` is absent, EasyWeb serves a built-in fallback page
 with a link to `index.html`. This means a completely empty checkout is still

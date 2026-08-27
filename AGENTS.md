@@ -30,15 +30,16 @@ public/
 
 These files are served as `/`, `/about.html`, `/styles.css`, and
 `/blog/post.html` respectively. A folder containing its own `index.html` is
-also served at the folder URL.
+also served at the folder URL. Python files are executed at their matching URL
+and return their standard output.
 
 ## Agent guidelines and rules
 
 1. Maintain the single-file constraint for `main.py`. Keep server behavior and
    static-file routing in that file unless the project owner explicitly changes
    this requirement.
-2. Keep static file access confined to `public/`. Preserve path-traversal
-   protections when changing routing code.
+2. Keep static file access and Python execution confined to `public/`. Preserve
+   path-traversal and symlink protections when changing routing code.
 3. Avoid committing caches, generated content, or virtual environments.
 4. Prefer small, dependency-light changes. Update `requirements.txt` when a
    runtime dependency is genuinely necessary.
@@ -52,6 +53,8 @@ also served at the folder URL.
   embedded HTML page with a link to index.html.
 - `GET /<path>` serves files and nested files from `public/`. Directories are
   redirected to a trailing-slash URL and use their `index.html` when present.
+- `GET /<path>.py` executes the Python file and returns its standard output.
+   Endpoint files can use Flask's `request` object to inspect query parameters.
 - The development server binds to `0.0.0.0:8000` when started with
   `python main.py`.
 
